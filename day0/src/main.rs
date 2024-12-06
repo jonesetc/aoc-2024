@@ -31,11 +31,11 @@ mod tests {
 
     #[test]
     fn test_part1() {
-        assert_eq!(part1("foo").to_string(), "foo");
+        assert_eq!(part1(&process("foo")).to_string(), "foo");
     }
 
     #[test]
     fn test_part2() {
-        assert_eq!(part2("foo").to_string(), "oof");
+        assert_eq!(part2(&process("foo")).to_string(), "oof");
     }
 }

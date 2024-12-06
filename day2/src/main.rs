@@ -30,7 +30,8 @@ fn check_is_safe(report: &[i8]) -> bool {
     true
 }
 
-fn part1(input: Vec<Vec<i8>>) -> impl ToString {
+#[allow(clippy::ptr_arg)]
+fn part1(input: &Vec<Vec<i8>>) -> impl ToString {
     input
         .iter()
         .map(|report| check_is_safe(report))
@@ -38,7 +39,8 @@ fn part1(input: Vec<Vec<i8>>) -> impl ToString {
         .count()
 }
 
-fn part2(input: Vec<Vec<i8>>) -> impl ToString {
+#[allow(clippy::ptr_arg)]
+fn part2(input: &Vec<Vec<i8>>) -> impl ToString {
     input
         .iter()
         .map(|report| {
@@ -65,11 +67,11 @@ fn main() {
     println!("------");
 
     println!("Running part 1");
-    println!("Result: {}", part1(input.clone()).to_string());
+    println!("Result: {}", part1(&input).to_string());
     println!("------");
 
     println!("Running part 2");
-    println!("Result: {}", part2(input.clone()).to_string());
+    println!("Result: {}", part2(&input).to_string());
 }
 
 #[cfg(test)]
@@ -79,14 +81,16 @@ mod tests {
     #[test]
     fn test_part1() {
         assert_eq!(
-            part1(vec![
-                vec![7, 6, 4, 2, 1],
-                vec![1, 2, 7, 8, 9],
-                vec![9, 7, 6, 2, 1],
-                vec![1, 3, 2, 4, 5],
-                vec![8, 6, 4, 4, 1],
-                vec![1, 3, 6, 7, 9],
-            ])
+            part1(&process(
+                "
+                    7 6 4 2 1\n\
+                    1 2 7 8 9\n\
+                    9 7 6 2 1\n\
+                    1 3 2 4 5\n\
+                    8 6 4 4 1\n\
+                    1 3 6 7 9\n\
+                "
+            ))
             .to_string(),
             "2"
         );
@@ -95,14 +99,16 @@ mod tests {
     #[test]
     fn test_part2() {
         assert_eq!(
-            part2(vec![
-                vec![7, 6, 4, 2, 1],
-                vec![1, 2, 7, 8, 9],
-                vec![9, 7, 6, 2, 1],
-                vec![1, 3, 2, 4, 5],
-                vec![8, 6, 4, 4, 1],
-                vec![1, 3, 6, 7, 9],
-            ])
+            part2(&process(
+                "
+                    7 6 4 2 1\n\
+                    1 2 7 8 9\n\
+                    9 7 6 2 1\n\
+                    1 3 2 4 5\n\
+                    8 6 4 4 1\n\
+                    1 3 6 7 9\n\
+                "
+            ))
             .to_string(),
             "4"
         );

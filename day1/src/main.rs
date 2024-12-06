@@ -20,15 +20,15 @@ fn process(input: &str) -> (Vec<u32>, Vec<u32>) {
     (left, right)
 }
 
-fn part1(input: (Vec<u32>, Vec<u32>)) -> impl ToString {
-    let (mut left, mut right) = input;
+fn part1(input: &(Vec<u32>, Vec<u32>)) -> impl ToString {
+    let (mut left, mut right) = input.clone();
     left.sort();
     right.sort();
 
     zip(left, right).map(|(a, b)| a.abs_diff(b)).sum::<u32>()
 }
 
-fn part2(input: (Vec<u32>, Vec<u32>)) -> impl ToString {
+fn part2(input: &(Vec<u32>, Vec<u32>)) -> impl ToString {
     let (left, right) = input;
 
     let right_counts = right.iter().fold(HashMap::new(), |mut acc, curr| {
@@ -47,11 +47,11 @@ fn main() {
     println!("------");
 
     println!("Running part 1");
-    println!("Result: {}", part1(input.clone()).to_string());
+    println!("Result: {}", part1(&input).to_string());
     println!("------");
 
     println!("Running part 2");
-    println!("Result: {}", part2(input.clone()).to_string());
+    println!("Result: {}", part2(&input).to_string());
 }
 
 #[cfg(test)]
@@ -61,7 +61,17 @@ mod tests {
     #[test]
     fn test_part1() {
         assert_eq!(
-            part1((vec![3, 4, 2, 1, 3, 3], vec![4, 3, 5, 3, 9, 3])).to_string(),
+            part1(&process(
+                "
+                    3   4\n\
+                    4   3\n\
+                    2   5\n\
+                    1   3\n\
+                    3   9\n\
+                    3   3\n\
+                "
+            ))
+            .to_string(),
             "11"
         );
     }
@@ -69,7 +79,17 @@ mod tests {
     #[test]
     fn test_part2() {
         assert_eq!(
-            part2((vec![3, 4, 2, 1, 3, 3], vec![4, 3, 5, 3, 9, 3])).to_string(),
+            part2(&process(
+                "
+                    3   4\n\
+                    4   3\n\
+                    2   5\n\
+                    1   3\n\
+                    3   9\n\
+                    3   3\n\
+                "
+            ))
+            .to_string(),
             "31"
         );
     }
